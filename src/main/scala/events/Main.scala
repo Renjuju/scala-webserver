@@ -1,10 +1,7 @@
 package events
 
-import gigahorse.support.okhttp.Gigahorse
 
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.Await
-import scala.concurrent.duration._
 
 
 case class Person(id:String, name:String)
@@ -38,22 +35,5 @@ class Permutations {
         count = count + 1
       }
     }
-  }
-}
-
-
-
-class PostGrabber {
-  def get(postNumber: Integer):String = {
-
-    var url: String = "https://jsonplaceholder.typicode.com/posts/%s".format(Integer.toString(postNumber))
-
-    Gigahorse.withHttp(Gigahorse.config) { http => {
-      val r = Gigahorse.url(url).get
-      val f = http.run(r, Gigahorse.asString)
-
-      return Await.result(f, 1500.millisecond)
-
-    }}
   }
 }
